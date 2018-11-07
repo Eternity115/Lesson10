@@ -56,6 +56,8 @@ public class StringReview {
         
         //compareTo = 0 = exact match
         
+        System.out.println("That's all folks");
+        
     }
     
 }
