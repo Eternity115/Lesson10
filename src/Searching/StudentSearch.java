@@ -2,9 +2,13 @@
 package Searching;
 
 import java.io.*;
+import javax.swing.JOptionPane;
 
 
 public class StudentSearch extends javax.swing.JFrame {
+    private String nm,ad;
+    private int id;
+    ISSStudent iss [] = new ISSStudent [100];
 
     
     public StudentSearch() {
@@ -14,14 +18,10 @@ public class StudentSearch extends javax.swing.JFrame {
         FileReader f = new FileReader("src\\Searching\\studata.txt");
         BufferedReader b = new BufferedReader(f);
             for (int i = 0; i < 100; i++) {
-                String nm,ad;
-                int id;
                 nm = b.readLine();
                 ad = b.readLine();
                 id = Integer.parseInt(b.readLine());
-                //print these to verify
-                //System.out.println(nm + "\t" + ad + "\t" + id);
-                //iss[i] = new ISSStun=dent(nm,ad,id);
+                iss[i] = new ISSStudent(nm,ad,id);
             }
             b.close();
         }catch (Exception e){
@@ -56,21 +56,31 @@ public class StudentSearch extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtnum = new javax.swing.JTextField();
+        txtid = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtdisplay = new javax.swing.JTextArea();
         btnsearch = new javax.swing.JButton();
         btnclear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtdisplay.setColumns(20);
+        txtdisplay.setRows(5);
+        jScrollPane1.setViewportView(txtdisplay);
 
         btnsearch.setText("Search");
+        btnsearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsearchActionPerformed(evt);
+            }
+        });
 
         btnclear.setText("Clear");
+        btnclear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnclearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,7 +94,7 @@ public class StudentSearch extends javax.swing.JFrame {
                         .addGap(44, 44, 44)
                         .addComponent(btnclear)
                         .addGap(18, 18, 18)
-                        .addComponent(txtnum, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
+                        .addComponent(txtid, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -93,7 +103,7 @@ public class StudentSearch extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtnum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnsearch)
                     .addComponent(btnclear))
                 .addGap(18, 18, 18)
@@ -103,6 +113,28 @@ public class StudentSearch extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchActionPerformed
+        try{
+        int id = Integer.parseInt(txtid.getText());
+        ISSStudent temp = new ISSStudent(null,null,id);
+        int result = search(iss,temp); //call
+        if (result >= 0)
+            txtdisplay.setText(iss[result].toString());
+        else //you got back a -1
+            txtdisplay.setText("Student not found");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Invalid Entry");
+            return;
+        }
+
+        
+    }//GEN-LAST:event_btnsearchActionPerformed
+
+    private void btnclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclearActionPerformed
+        txtdisplay.setText("");
+        txtid.setText("");
+    }//GEN-LAST:event_btnclearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,7 +179,7 @@ public class StudentSearch extends javax.swing.JFrame {
     private javax.swing.JButton btnclear;
     private javax.swing.JButton btnsearch;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField txtnum;
+    private javax.swing.JTextArea txtdisplay;
+    private javax.swing.JTextField txtid;
     // End of variables declaration//GEN-END:variables
 }
