@@ -1,11 +1,11 @@
 
 package Sorting;
 
-
+//DO NOT USE THIS FILE
 public class InsertionSort {
     private InsertionSort(){} //can not be instantiated
     
-    public static void insertionSort(int[] a){
+    public static void insertionSort(Object[] a){
         int itemToInsert, j;
         boolean stillLooking;
         
@@ -15,11 +15,11 @@ public class InsertionSort {
         */
         for (int k = 1; k < a.length; k++) {
             //move backwards through list, looking for the right place to insert a[k]
-            itemToInsert = a[k];
+            itemToInsert = (int) a[k];
             j=k-1;
             stillLooking=true;
             while(j >=0 && stillLooking){
-                if (itemToInsert < a[j]){
+                if (((Comparable)itemToInsert).compareTo (a[j])< 0){
                     //move item higher
                     a[j+1] = a[j];
                     j--;
