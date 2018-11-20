@@ -207,6 +207,11 @@ public class PersonListGUI extends javax.swing.JFrame {
 
         mnumale.setIcon(new javax.swing.ImageIcon("T:\\ISS-ICS4U1-1\\erik8460\\Unit 4 - Algorithms\\Lesson10\\src\\insertremovearraylist\\male.png")); // NOI18N
         mnumale.setText("Male");
+        mnumale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnumaleActionPerformed(evt);
+            }
+        });
         jMenu3.add(mnumale);
 
         jMenuBar1.add(jMenu3);
@@ -259,11 +264,23 @@ public class PersonListGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuallActionPerformed
-        // TODO add your handling code here:
+        list.clear();
+        for (Person p : pep) {
+            list.addElement(p.getName());
+        }
+        mnuadd.setEnabled(true);
+        mnudel.setEnabled(true);
     }//GEN-LAST:event_mnuallActionPerformed
 
     private void mnufemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnufemActionPerformed
-        // TODO add your handling code here:
+        list.clear();
+        for (Person p : pep) {
+            if (p.getGen()=="fem"){
+                list.addElement(p.getName());
+            }
+        }
+        mnuadd.setEnabled(false);
+        mnudel.setEnabled(false);
     }//GEN-LAST:event_mnufemActionPerformed
 
     private void mnuexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuexActionPerformed
@@ -297,10 +314,6 @@ public class PersonListGUI extends javax.swing.JFrame {
         String name = "" + peoplelist.getSelectedValue();
         int loc = search(pep, new Person (name,0,""));
         show(pep.get(loc));
-        for (Person people : pep) {
-            System.out.println(people);
-        }
-
     }//GEN-LAST:event_peoplelistMouseClicked
 
     private void mnudelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnudelActionPerformed
@@ -316,6 +329,17 @@ public class PersonListGUI extends javax.swing.JFrame {
         list.removeElementAt(loc);
         clearForm();
     }//GEN-LAST:event_mnudelActionPerformed
+
+    private void mnumaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnumaleActionPerformed
+        list.clear();
+        for (Person p : pep) {
+            if (p.getGen()=="ma"){
+                list.addElement(p.getName());
+            }
+        }
+        mnuadd.setEnabled(false);
+        mnudel.setEnabled(false);
+    }//GEN-LAST:event_mnumaleActionPerformed
 
     public void clearForm(){
         txtname.setText("");
