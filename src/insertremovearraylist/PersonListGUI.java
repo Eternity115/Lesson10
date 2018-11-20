@@ -296,6 +296,10 @@ public class PersonListGUI extends javax.swing.JFrame {
         int tempage = Integer.valueOf(txtage.getText());
         //NEED TO FIX
         String btngen = buttonGroup1.getSelection().getActionCommand();
+        if (tempage<0 || tempage>130){
+            JOptionPane.showMessageDialog(this, "Invalid age");
+            return;
+        }
         Person temp = new Person(txtname.getText(), tempage,btngen);
         int loc = findInsertPoint(pep, temp);
         pep.add(loc, temp);
