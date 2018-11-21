@@ -8,26 +8,27 @@ package insertremovearraylist;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+
 public class PersonListGUI extends javax.swing.JFrame {
 
     ArrayList<Person> pep = new ArrayList();
     DefaultListModel list = new DefaultListModel();
+
     public PersonListGUI() {
         initComponents();
         peoplelist.setModel(list);
-        pep.add(new Person("Bob", 72,"ma"));
-        pep.add(new Person("Fran", 26,"fem"));
-        pep.add(new Person("Mike", 15,"ma"));
-        pep.add(new Person("Sue", 54,"fem"));
+        pep.add(new Person("Bob", 72, "ma"));
+        pep.add(new Person("Fran", 26, "fem"));
+        pep.add(new Person("Mike", 15, "ma"));
+        pep.add(new Person("Sue", 54, "fem"));
         //Add People to list model
         for (Person people : pep) {
             list.addElement(people.getName());
         }
-        
-       
+
     }
 
-        public static int search(ArrayList a, Object searchValue) {
+    public static int search(ArrayList a, Object searchValue) {
         int left = 0;
         int right = a.size() - 1;
         while (left <= right) {
@@ -65,12 +66,15 @@ public class PersonListGUI extends javax.swing.JFrame {
         }
         return midpoint;
     }
-    
-    public void show(Person p){
+
+    public void show(Person p) {
         txtname.setText(p.getName());
         txtage.setText("" + p.getAge());
-        if(p.getGen()=="ma") btnmale.setSelected(true);
-        else btnfem.setSelected(true);
+        if (p.getGen() == "ma") {
+            btnmale.setSelected(true);
+        } else {
+            btnfem.setSelected(true);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -275,7 +279,7 @@ public class PersonListGUI extends javax.swing.JFrame {
     private void mnufemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnufemActionPerformed
         list.clear();
         for (Person p : pep) {
-            if (p.getGen()=="fem"){
+            if (p.getGen() == "fem") {
                 list.addElement(p.getName());
             }
         }
@@ -292,25 +296,25 @@ public class PersonListGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuclearActionPerformed
 
     private void mnuaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuaddActionPerformed
-        
-        try{
-        int tempage = Integer.valueOf(txtage.getText());
-        //NEED TO FIX
-        String btngen = buttonGroup1.getSelection().getActionCommand();
-        if (tempage<0 || tempage>130){
-            JOptionPane.showMessageDialog(this, "Invalid age");
-            return;
-        }
-        Person temp = new Person(txtname.getText(), tempage,btngen); 
-        int loc;
-        if (pep.size()!=0){
-            loc = findInsertPoint(pep, temp);
-        }
-        else 
-        loc=0;
-        pep.add(loc, temp);
-        list.add(loc, temp);
-        }catch(Exception e){
+
+        try {
+            int tempage = Integer.valueOf(txtage.getText());
+            //NEED TO FIX
+            String btngen = buttonGroup1.getSelection().getActionCommand();
+            if (tempage < 0 || tempage > 130) {
+                JOptionPane.showMessageDialog(this, "Invalid age");
+                return;
+            }
+            Person temp = new Person(txtname.getText(), tempage, btngen);
+            int loc;
+            if (pep.size() != 0) {
+                loc = findInsertPoint(pep, temp);
+            } else {
+                loc = 0;
+            }
+            pep.add(loc, temp);
+            list.add(loc, temp);
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Please fill in data");
         }
         list.clear();
@@ -322,7 +326,7 @@ public class PersonListGUI extends javax.swing.JFrame {
 
     private void peoplelistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_peoplelistMouseClicked
         String name = "" + peoplelist.getSelectedValue();
-        int loc = search(pep, new Person (name,0,""));
+        int loc = search(pep, new Person(name, 0, ""));
         show(pep.get(loc));
     }//GEN-LAST:event_peoplelistMouseClicked
 
@@ -330,7 +334,7 @@ public class PersonListGUI extends javax.swing.JFrame {
         String nmpeople = txtname.getText();
         Person temp = new Person(nmpeople, 0, "");
         String delpeople = peoplelist.getSelectedValue();
-        if (delpeople==null){
+        if (delpeople == null) {
             JOptionPane.showMessageDialog(this, "Select a person to delete");
             return;
         }
@@ -343,7 +347,7 @@ public class PersonListGUI extends javax.swing.JFrame {
     private void mnumaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnumaleActionPerformed
         list.clear();
         for (Person p : pep) {
-            if (p.getGen()=="ma"){
+            if (p.getGen() == "ma") {
                 list.addElement(p.getName());
             }
         }
@@ -351,15 +355,14 @@ public class PersonListGUI extends javax.swing.JFrame {
         mnudel.setEnabled(false);
     }//GEN-LAST:event_mnumaleActionPerformed
 
-    public void clearForm(){
+    public void clearForm() {
         txtname.setText("");
         txtage.setText("");
         buttonGroup1.clearSelection();
         peoplelist.clearSelection();
     }
-    /**
-     * @param args the command line arguments
-     */
+    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
