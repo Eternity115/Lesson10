@@ -292,6 +292,7 @@ public class PersonListGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuclearActionPerformed
 
     private void mnuaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuaddActionPerformed
+        
         try{
         int tempage = Integer.valueOf(txtage.getText());
         //NEED TO FIX
@@ -300,8 +301,13 @@ public class PersonListGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Invalid age");
             return;
         }
-        Person temp = new Person(txtname.getText(), tempage,btngen);
-        int loc = findInsertPoint(pep, temp);
+        Person temp = new Person(txtname.getText(), tempage,btngen); 
+        int loc;
+        if (pep.size()!=0){
+            loc = findInsertPoint(pep, temp);
+        }
+        else 
+        loc=0;
         pep.add(loc, temp);
         list.add(loc, temp);
         }catch(Exception e){
