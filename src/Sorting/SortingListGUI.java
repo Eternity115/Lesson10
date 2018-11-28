@@ -1,4 +1,4 @@
-//BAD PROGRAM - DO NOT USE
+
 package Sorting;
 
 import javax.swing.DefaultListModel;
@@ -67,6 +67,11 @@ public class SortingListGUI extends javax.swing.JFrame {
         });
 
         btnqu.setText("Quick Sort");
+        btnqu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnquActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Time Taken:");
 
@@ -151,7 +156,7 @@ public class SortingListGUI extends javax.swing.JFrame {
         double end = System.nanoTime();
         double tottime = end-start;
         tottime = tottime/1000000000;
-        lbltime.setText(String.format("%.2f seconds", tottime));
+        lbltime.setText(String.format("%.4f seconds", tottime));
         for (int i = 0; i < 50000; i++) {
             list.addElement("" + nums[i]); //can only have string
         }
@@ -168,7 +173,7 @@ public class SortingListGUI extends javax.swing.JFrame {
         double end = System.nanoTime();
         double tottime = end-start;
         tottime = tottime/1000000000;
-        lbltime.setText(String.format("%.2f seconds", tottime));
+        lbltime.setText(String.format("%.4f seconds", tottime));
         for (int i = 0; i < 50000; i++) {
             list.addElement("" + nums[i]); //can only have string
         }
@@ -185,7 +190,7 @@ public class SortingListGUI extends javax.swing.JFrame {
         double end = System.nanoTime();
         double tottime = end-start;
         tottime = tottime/1000000000;
-        lbltime.setText(String.format("%.2f seconds", tottime));
+        lbltime.setText(String.format("%.4f seconds", tottime));
         for (int i = 0; i < 50000; i++) {
             list.addElement("" + nums[i]); //can only have string
         }
@@ -194,6 +199,23 @@ public class SortingListGUI extends javax.swing.JFrame {
         btnin.setEnabled(false);
         btnqu.setEnabled(false);
     }//GEN-LAST:event_btninActionPerformed
+
+    private void btnquActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnquActionPerformed
+        list.clear();
+        double start = System.nanoTime();
+        quickSort(nums, 0, nums.length-1);
+        double end = System.nanoTime();
+        double tottime = end-start;
+        tottime = tottime/1000000000;
+        lbltime.setText(String.format("%.4f seconds", tottime));
+        for (int i = 0; i < 50000; i++) {
+            list.addElement("" + nums[i]); //can only have string
+        }
+        btnbub.setEnabled(false);
+        btnex.setEnabled(false);
+        btnin.setEnabled(false);
+        btnqu.setEnabled(false);
+    }//GEN-LAST:event_btnquActionPerformed
 
    
     public static void bubbleSort(int[] a) {
@@ -244,7 +266,24 @@ public class SortingListGUI extends javax.swing.JFrame {
         }
         return minIndex;
     }
-
+   ///////////////////////////////////////////////////////
+    public void quickSort (int[] a, int left, int right){
+        if (left>= right) return;
+        int i = left;
+        int j = right;
+        int pivotValue = a[(left + right)/2];
+        while (i<j){
+            while (a[i] < pivotValue) i++;
+            while(pivotValue < a[j]) j--;
+            int temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+            i++;
+            j--;
+        }
+        quickSort (a,left,j);
+        quickSort (a,i,right);
+    }
 
 /////////////////////////////////////////////////////////////
     public static void insertionSort(int a[]) {
